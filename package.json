@@ -1,0 +1,33 @@
+{
+  "name": "biobazaar_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariannecvaz/BioBazaar_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariannecvaz/BioBazaar_Backend/issues"
+  },
+  "homepage": "https://github.com/mariannecvaz/BioBazaar_Backend#readme",
+  "dependencies": {
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.8.1",
+    "googleapis": "^66.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8",
+    "nodemon": "^2.0.6",
+    "woocommerce": "^2.4.0",
+    "wpapi": "^1.2.1"
+  }
+}

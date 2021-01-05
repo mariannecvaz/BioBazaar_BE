@@ -1,6 +1,6 @@
 const WooCommerce = require('../Database/dbconfig.js')
 // const bcrypt = require('bcrypt')
-// const utilities = require('../utilities/utilities.js')
+const utilities = require('../utilities/utilities.js')
 const coinsController = require('../controller/coins')
 
 //Função que cria um utilizador
@@ -25,8 +25,6 @@ const createUser = (req, res) => {
 const login = (req, res) => {
   const user = {
     username: req.params.username,
-
-    
     password: req.params.password
   }
   WooCommerce.post(user)

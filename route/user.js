@@ -26,7 +26,7 @@ router.post( '/wp-json/jwt-auth/v1/token', ( req, res ) => {
 } );
 
 //Vai buscar a função aos controllers para mostrar todos os utilizadores
-router.get( '/', ( req, res ) => {
+router.get( '/users', ( req, res ) => {
     const error = validationResult(req)
     if(error.isEmpty()){
         controller.getAllUsers( req, res )

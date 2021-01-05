@@ -58,4 +58,20 @@ router.put('/:id', [
         res.status(404).json({errors: erros.array()})
     }
 })
+router.post('/register', [
+    body('email').notEmpty().escape(),
+    body('password').notEmpty().escape(),
+    body('username').notEmpty().escape(),
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.registerM(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
+router.post('/login', function(req, res){
+    controller.loginM(req, res)
+})
 module.exports = router

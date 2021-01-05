@@ -1,7 +1,9 @@
 const WooCommerce = require('../Database/dbconfig.js')
-// const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const utilities = require('../utilities/utilities.js')
 const coinsController = require('../controller/coins')
+const user = require('../models/users.js')
+
 
 //Função que cria um utilizador
 const createUser = (req, res) => {
@@ -28,12 +30,12 @@ const login = (req, res) => {
     password: req.params.password
   }
   WooCommerce.post(user)
-  .then((response) => {
-    res.status(200).json(response)
-  })
-  .catch((error) => { 
-    res.status(404).json(error)
-  });
+    .then((response) => {
+      res.status(200).json(response)
+    })
+    .catch((error) => {
+      res.status(404).json(error)
+    });
 }
 
 //Get dos Utilizadores - vai buscar todos os utilizadores existentes na base de dados
@@ -94,6 +96,61 @@ const editUser = (req, res) => {
     });
 
 }
+/**MONGOOSE LOGIN E REGIST */
+
+const registerM = (req, res) => {
+
+  bcrypt.genSalt(10, function (err, salt) {
+
+    bcrypt.hash(req.body.password, salt, function (err, hash) {
+      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, coins: 0, adress: "", zipCode: "", country: "", city: "" })
+
+      user.find({ email: req.body.email }, function (err, user) {
+        if (err) {
+          res.status(400).send(err)
+        }
+        if (user.length > 0) {
+          res.status(406).send("User already exists!")
+        } else {
+          newUser.save(function (err, newUser) {
+            if (err) {
+              res.status(400).send(err)
+            } else {
+              res.status(200).json("User Registered!")
+            }
+          })
+        }
+      })
+    })
+  })
+}
+
+const loginM = (req, res) => {
+  user.find({ email: req.body.email }, function (err, user) {
+    if (err) {
+      res.status(400).send(err)
+    }
+    if (user.length > 0) {
+      bcrypt.compare(req.body.password, user[0].password).then(function (result) {
+        if (result) {
+          utilities.generateToken({ user: req.body.email }, (token) => {
+            res.status(200).json(token)
+          })
+        } else {
+          res.status(401).send("Wrong Password")
+        }
+      })
+    } else {
+      res.status(401).send("Wrong email")
+
+    }
+  })
+}
+
+
+exports.registerM = registerM;
+exports.loginM = loginM;
+
 
 exports.createUser = createUser;
 exports.login = login;

@@ -1,87 +1,29 @@
-const { google } = require('googleapis');
+var jwt = require('jsonwebtoken');
 
-//VER CHAVES API!!!!
-const googleConfig = {
-    clientId: '829313020638-tikb0uqdo4uev1okfmji5ajbsegg3mt4.apps.googleusercontent.com',
-    clientSecret: 'OFgE5UUNz-ZUE05SZqhQ4bfP',
-    redirect: 'https://biobazaar.herokuapp.com/login'
-};
-
-const defaultScope = [
-    'https://www.googleapis.com/auth/userinfo.profile', 
-    'https://www.googleapis.com/auth/userinfo.email'
-];
-
-const createConnection = () => {
-  return new google.auth.OAuth2(
-    googleConfig.clientId,
-    googleConfig.clientSecret,
-    googleConfig.redirect
-  );
+const generateToken = (user_info, callback) => {
+    let secret = process.env.SECRET; 
+    let token = jwt.sign({
+        data: user_info,
+    }, secret, {expiresIn: '24h'});
+    return callback(token); 
 }
 
-const getConnectionUrl = (auth) => {
-    return auth.generateAuthUrl({
-        access_type: 'offline',
-        prompt: 'consent',
-        scope: defaultScope
-    });
-}
-
-const urlGoogle = () => {
-    const auth = createConnection();
-    const url = getConnectionUrl(auth);
-    return url;
-}
-
-const getTokens = (code, callback) => {
-    const auth = createConnection();
-    auth.getToken(code).then(tokens => {
-        if (!tokens.tokens) {
-            return callback(true, "Error")
+const validateToken = (token, callback) => {
+    if(!token) {
+        return callback(false); 
+    }
+    let secret = process.env.SECRET; 
+    jwt.verify(token.replace('Bearer ', ''), secret, function(error, decoded) {
+        if(error) {
+            return callback(false);
         } else {
-            return callback(false, tokens.tokens)
+            return callback(true)
         }
     })
 }
 
-const getUserInfo = (access_token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clientId);
-    client.setCredentials({access_token: access_token});
-    var oauth2 = google.oauth2({
-        auth: client,
-        version: 'v2'
-    });
-    oauth2.userinfo.get(
-    function(err, result) {
-        if (err) {
-            return callback(true, err)
-        } else {
-            return callback(false, result.data)
-        }
-    });
-}
+const exceptions = ['/', '/login', '/register'] //todas estas rotas, não é preciso token/login
 
-const validateToken = (token, callback) => {
-    let client = new google.auth.OAuth2(googleConfig.clientId);
-    async function verify() {
-        let ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: googleConfig.clientId, 
-        });
-        
-        let payload = ticket.getPayload();
-        return callback(false,payload);
-    }
-        
-    verify().catch(error => {
-        return callback(true, error);
-    });
-}
-
-exports.createConnection = createConnection; 
-exports.generateAuthUrl = getConnectionUrl; 
-exports.urlGoogle = urlGoogle; 
-exports.getTokens = getTokens; 
-exports.getUserInfo = getUserInfo; 
-exports.validateToken = validateToken; 
+exports.generateToken = generateToken
+exports.validateToken = validateToken
+exports.exceptions = exceptions

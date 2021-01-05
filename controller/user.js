@@ -96,6 +96,30 @@ const editUser = (req, res) => {
     });
 
 }
+
+// EDIT USER COM MONGOOSE
+const editUserM = (req, res) => {
+
+  user.findOne({_id:req.params.id}, function (err, user) {
+      if (err) {
+          res.status(400).send(err)
+      }
+      if(user){
+          user.email = req.body.email
+          user.password = req.body.password
+          user.username = req.body.username
+          user.coins = req.body.coins
+          user.adress = req.body.adress
+          user.zipCode = req.body.zipCode
+          user.country = req.body.country
+          user.city = req.body.city
+          user.save()
+          res.status(200).send("Utilizador Editado!")
+      }
+  })
+
+}
+
 /**MONGOOSE LOGIN E REGIST */
 
 const registerM = (req, res) => {
@@ -150,6 +174,7 @@ const loginM = (req, res) => {
 
 exports.registerM = registerM;
 exports.loginM = loginM;
+exports.editUserM = editUserM;
 
 
 exports.createUser = createUser;

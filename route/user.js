@@ -58,6 +58,9 @@ router.put('/:id', [
         res.status(404).json({errors: erros.array()})
     }
 })
+
+
+//Mongoose
 router.post('/register', [
     body('email').notEmpty().escape(),
     body('password').notEmpty().escape(),
@@ -73,5 +76,25 @@ router.post('/register', [
 })
 router.post('/login', function(req, res){
     controller.loginM(req, res)
+})
+
+router.put('/user/:id', [
+    param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
+    body('email').notEmpty().escape(),
+    body('password').notEmpty().escape(),
+    body('username').notEmpty().escape(),
+    body('coins').notEmpty().escape(),
+    body('adress').notEmpty().escape(),
+    body('zipcode').notEmpty().escape(),
+    body('country').notEmpty().escape(),
+    body('city').notEmpty().escape(),
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.editUserM(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
 })
 module.exports = router

@@ -74,7 +74,10 @@ router.post('/register', [
         res.status(404).json({errors: erros.array()})
     }
 })
-router.post('/login', function(req, res){
+
+router.post('/login', [
+    body('email').notEmpty().escape(),
+    body('password').notEmpty().escape()], function(req, res){
     controller.loginM(req, res)
 })
 

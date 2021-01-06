@@ -140,7 +140,7 @@ const registerM = (req, res) => {
             if (err) {
               res.status(400).send(err)
             } else {
-              res.status(200).json("User Registered!")
+              res.status(200).json({res:"User Registered!"})
             }
           })
         }

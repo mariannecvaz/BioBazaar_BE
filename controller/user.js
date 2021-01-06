@@ -127,7 +127,7 @@ const registerM = (req, res) => {
   bcrypt.genSalt(10, function (err, salt) {
 
     bcrypt.hash(req.body.password, salt, function (err, hash) {
-      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, coins: 0, adress: "", zipCode: "", country: "", city: "" })
+      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username,name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "" })
 
       user.find({ email: req.body.email }, function (err, user) {
         if (err) {

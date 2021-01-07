@@ -15,5 +15,4 @@ db.once('open', function () {
 })
 db.on('error', console.error.bind(console, "connection error: "))
 
-
 module.exports = mongoConnect

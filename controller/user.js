@@ -174,12 +174,12 @@ const loginM = (req, res) => {
 //GET USER COM MONGO
 const getUserByIdM = (req, res) => {
 
-  car.find(
-    {id:req.params.id}, function (err, cars) {
+  user.find(
+    {id:req.params.id}, function (err, user) {
       if (err) {
           res.status(400).send(err)
       } else { 
-          res.status(200).json(cars)
+          res.status(200).json(user)
       }
   })
 }

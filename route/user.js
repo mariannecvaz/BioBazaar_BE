@@ -81,7 +81,15 @@ router.post('/login', [
     body('password').notEmpty().escape()], function(req, res){
     controller.loginM(req, res)
 })
-
+router.get('/user/:id',[param('id').notEmpty().isNumeric().escape()], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()){
+        controller.getUserByIdM(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array()})
+    }
+})
 router.put('/user/:id', [
     param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
     body('email').notEmpty().escape(),

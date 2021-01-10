@@ -171,7 +171,25 @@ const loginM = (req, res) => {
   })
 }
 
+//GET USER COM MONGO
+const getUserByIdM = (req, res) => {
 
+  car.find(
+    {id:req.params.id}, function (err, cars) {
+      if (err) {
+          res.status(400).send(err)
+      } else { 
+          res.status(200).json(cars)
+      }
+  })
+}
+
+
+
+
+
+
+exports.getUserByIdM=getUserByIdM;
 exports.registerM = registerM;
 exports.loginM = loginM;
 exports.editUserM = editUserM;

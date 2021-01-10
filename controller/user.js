@@ -175,7 +175,7 @@ const loginM = (req, res) => {
 const getUserByIdM = (req, res) => {
 
   user.find(
-    {id:req.params.id}, function (err, user) {
+    {_id:req.params.id}, function (err, user) {
       if (err) {
           res.status(400).send(err)
       } else { 

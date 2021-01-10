@@ -81,7 +81,7 @@ router.post('/login', [
     body('password').notEmpty().escape()], function(req, res){
     controller.loginM(req, res)
 })
-router.get('/user/:id',[param('id').notEmpty().isNumeric().escape()], function(req, res){
+router.get('/user/:id',[param('id').notEmpty().escape()], function(req, res){
     const erros = validationResult(req);
     if(erros.isEmpty()){
         controller.getUserByIdM(req, res);

@@ -158,7 +158,7 @@ const loginM = (req, res) => {
       bcrypt.compare(req.body.password, user[0].password).then(function (result) {
         if (result) {
           utilities.generateToken({ user: req.body.email }, (token) => {
-            res.status(200).JSON({token:token})
+            res.status(200).json({token:token})
             // adiciona na base de dados o token ao user?
           })
         } else {

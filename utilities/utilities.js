@@ -1,11 +1,12 @@
 var jwt = require('jsonwebtoken');
+const keysto = require('../Database/keysto.json')
 const {OAuth2Client} = require('google-auth-library');
 
 const client = new OAuth2Client(
-    keysto.web.client_id,
-    keysto.web.client_secret,
-    keysto.web.redirect_uris[0]);
-    
+    keysto.client_id,
+    keysto.client_secret,
+    keysto.redirect_uris);
+
 const generateToken = (user_info, callback) => {
     let secret = process.env.SECRET; 
     let token = jwt.sign({
@@ -28,7 +29,7 @@ const validateToken = (token, callback) => {
     })
 }
 const verify = (token) => {
-    const ticket = await client.verifyIdToken({
+    const ticket = client.verifyIdToken({
         idToken: token,
         audience:  keysto.client_id, 
     });

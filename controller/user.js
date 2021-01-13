@@ -61,7 +61,7 @@ const googleAuth = (req, res) => {
     existingUser => {
       if (!existingUser) {
         utilities.verify(idToken)
-        new User({ googleId: userid }).save();
+        new user({ googleId: userid }).save();
       }
     });
 }

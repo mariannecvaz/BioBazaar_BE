@@ -60,14 +60,14 @@ const googleAuth = (req, res) => {
   var decodedToken = jwt_decode(req.body.token)
   const username = decodedToken.name
   const userEmail = decodedToken.email
-  users.find({
+  user.find({
     email: userEmail
   }, function (err, user) {
     if (err) {
       res.status(400).send(err);
     }
     if (user.length > 0) {
-      users.findOne({
+      user.findOne({
         email: userEmail
       }, function (err, results) {
         if (err) {

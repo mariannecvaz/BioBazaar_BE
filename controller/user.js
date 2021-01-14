@@ -57,13 +57,62 @@ const registerM = (req, res) => {
 }
 
 const googleAuth = (req, res) => {
-  user.findOne({ googleId: userid }).then(
-    existingUser => {
-      if (!existingUser) {
-        utilities.verify(idToken)
-        new user({ googleId: userid }).save();
-      }
-    });
+  var decodedToken = jwt_decode(req.body.token)
+  const username = decodedToken.name
+  const userEmail = decodedToken.email
+  users.find({
+    email: userEmail
+  }, function (err, user) {
+    if (err) {
+      res.status(400).send(err);
+    }
+    if (user.length > 0) {
+      users.findOne({
+        email: userEmail
+      }, function (err, results) {
+        if (err) {
+          res.status(400).send(err);
+        }
+        if (!results) {
+          utilities.generateToken({
+            email: userEmail,
+            username: username,
+          }, (token) => {
+            res.status(200).json({
+              token: token
+            });
+          })
+        }
+      })
+    } else if (user.length == 0) {
+      const userToCreate = new user({
+        username: username,
+        password: "",
+        email: userEmail,
+        coins: 0,
+        adress: "",
+        zipCode: "",
+        country: "",
+        city: "",
+      });
+
+      userToCreate.save(function (err, newUser) {
+        if (err) {
+          res.status(400).send(err);
+        }
+        utilities.generateToken({
+          email: userEmail,
+          username: username,
+        }, (token) => {
+          res.status(200).json({
+            token: token
+          });
+        })
+      })
+    } else {
+      res.status(401).send("Not Authorized");
+    }
+  })
 }
 
 const loginM = (req, res) => {
@@ -111,4 +160,3 @@ exports.registerM = registerM;
 exports.loginM = loginM;
 exports.editUserM = editUserM;
 exports.googleAuth = googleAuth;
-

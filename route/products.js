@@ -1,4 +1,3 @@
-
 const express= require('express')
 const { validationResult , body, param} = require('express-validator')
 const router = express.Router()
@@ -26,14 +25,16 @@ router.get( '/:id',[param('id').notEmpty().isNumeric().escape()], ( req, res ) =
    }
 } );
 
-router.get( '/:category',[param('category').notEmpty().escape()], ( req, res ) => {
+router.get('/subcategoria/:subCategory',[param('subCategory').notEmpty().escape()], ( req, res ) => {
     const error = validationResult(req)
     if(error.isEmpty()){
-        controller.getProductByCategory( req, res )
+        controller.getProductBySubCategory( req, res )
     }
    else{
     res.status(404).json(error.array())
    }
 } );
+
+
 
 module.exports = router

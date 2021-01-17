@@ -1,47 +1,70 @@
-const WooCommerce = require('../Database/dbconfig.js')
 const products = require('../models/products')
+const category = require('../models/category');
+
 //Get dos Produtos - vai buscar todos os produtos existentes na base de dados
-const getAllProducts = (req,res) => {
-  products.find( function (err, result) {
+const getAllProducts = (req, res) => {
+  products.find(function (err, result) {
     if (err) {
-        res.status(400).send(err);
-    }
-    else{
-       
-       res.status(200).json(result)
+      res.status(400).send(err);
+    } else {
+
+      res.status(200).json(result)
     }
 
-})
+  })
 }
 
 //Get dos Produtos por ID - vai buscar à base de dados o produto correspondente ao ID pretendido
-const getProductById = (req,res) => {
-    WooCommerce.get("products/" + req.params.id)
-    .then((response) => {
-     res.status(200).json(response.data)
-    })
-    .catch((error) => {
-    
-      res.status(404).json(error.response.data)
-    });
+const getProductById = (req, res) => {
+  products.find({id_product: req.params.id}, function (err, result) {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(result[0])
+    }
+  })
 }
 
 
 //Get dos Produtos por Categoria - vai buscar à base de dados o produto correspondente a Categoria pretendido
-const getProductByCategory = (req,res) => {
-  WooCommerce.get("products/" + req.params.type)
-  .then((response) => {
-   res.status(200).json(response.data)
+const getProductBySubCategory = (req, res) => {
+  products.find({subCategory: req.params.subCategory}, function (err, result) {
+    console.log(req.params.subCategory)
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(result)
+    }
   })
-  .catch((error) => {
-  
-    res.status(404).json(error.response.data)
-  });
 }
 
 
+const getAllCategories = (req, res) => {
+    category.find(function (err, result) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        else{
+           res.status(200).json(result)
+        }
+
+    })
+}
+
+const getSubCategoryByCategory = (req, res) => {
+    category.find({name: req.params.name}, function (err, result) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        else{
+           res.status(200).json(result[0].subCategories)
+        }
+    })
+}
 
 
 exports.getAllProducts = getAllProducts;
 exports.getProductById = getProductById;
-exports.getProductByCategory = getProductByCategory;
+exports.getProductBySubCategory = getProductBySubCategory;
+exports.getAllCategories = getAllCategories;
+exports.getSubCategoryByCategory = getSubCategoryByCategory;

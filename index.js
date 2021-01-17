@@ -10,7 +10,7 @@ const ordersRoute = require('./route/orders')
 const favoritesRoute = require('./route/favorites')
 const coinsRoute = require('./route/coins')
 const shoppingBagRoute = require('./route/shoppingBag')
-
+const categoryRoute = require('./route/category')
 app.use(express.json());
 app.use('/produtos', productsRoute)
 app.use('/', usersRoute)
@@ -18,7 +18,7 @@ app.use('/encomendas', ordersRoute)
 app.use('/favoritos', favoritesRoute)
 app.use('/pontos', coinsRoute)
 app.use('/sacoCompras', shoppingBagRoute)
-
+app.use('/',categoryRoute)
 //Authorization - login
 const auth = function(req, res, next) {
     console.log(req.url)

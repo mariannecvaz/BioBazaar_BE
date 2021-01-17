@@ -1,15 +1,17 @@
 const WooCommerce = require('../Database/dbconfig.js')
-
+const products = require('../models/products')
 //Get dos Produtos - vai buscar todos os produtos existentes na base de dados
 const getAllProducts = (req,res) => {
-    WooCommerce.get("products")
-    .then((response) => {
-     res.status(200).json(response.data)
-    })
-    .catch((error) => {
-    
-      res.status(404).json(error.response.data)
-    });
+  products.find( function (err, result) {
+    if (err) {
+        res.status(400).send(err);
+    }
+    else{
+       
+       res.status(200).json(result)
+    }
+
+})
 }
 
 //Get dos Produtos por ID - vai buscar à base de dados o produto correspondente ao ID pretendido

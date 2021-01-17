@@ -73,7 +73,7 @@ const googleAuth = (req, res) => {
         if (err) {
           res.status(400).send(err);
         }
-        if (!results) {
+        if (! results) {
           utilities.generateToken({
             email: userEmail,
             username: username,
@@ -125,7 +125,6 @@ const loginM = (req, res) => {
         if (result) {
           utilities.generateToken({ user: req.body.email }, (token) => {
             res.status(200).json({ token: token })
-            // adiciona na base de dados o token ao user?
           })
         } else {
           res.status(401).send("Wrong Password")

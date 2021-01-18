@@ -3,10 +3,9 @@ const { validationResult , body, param} = require('express-validator')
 const router = express.Router()
 const controller = require('../controller/shoppingBag.js')
 
-//Vai buscar a função aos controllers para adicionar um determinado produto ao saco de compras
 router.post('/:id/:id_product', [
-    param('id').notEmpty().isNumeric().escape(), 
-    param('id_product').notEmpty().isNumeric().escape()
+    param('id').notEmpty().escape(), 
+    param('id_product').notEmpty().escape()
 ], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
@@ -16,8 +15,7 @@ router.post('/:id/:id_product', [
     }
 })
 
-//Vai buscar a função aos controllers que lista todos os produtos adicionados no saco de compras de um determinado utilizador
-router.get('/:id', [param('id').notEmpty().isNumeric().escape()], (req, res) => {
+router.get('/:id', [param('id').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
         controller.getShoppingBagByUser(req, res)
@@ -26,7 +24,6 @@ router.get('/:id', [param('id').notEmpty().isNumeric().escape()], (req, res) => 
     }
 });
 
-//Vai buscar a função aos controllers que elimina um determinado produto do saco das compras
 router.delete('/:id/:id_product', [
     param('id').notEmpty().escape(), param('id_product').notEmpty().escape() //campos de preenchimento obrigatorio
 ], function (req, res) {

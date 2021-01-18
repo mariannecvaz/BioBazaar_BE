@@ -1,45 +1,43 @@
-const WooCommerce = require('../Database/dbconfig.js');
+const order = require('../models/orders.js');
 
-//Função que cria uma encomenda
-const createOrder = (req, res) => {
-    const newOrder = {
+const addOrder = (req, res) => {
+    const newOrder = new order ({
+        id_user: req.params.id,
+        name: req.body.name,
+        adress: req.body.adress,
+        zipCode: req.body.zipCode,
+        contact: req.body.contact,
         email: req.body.email,
+        city: req.body.city,
+        products: req.body.products,
         total: req.body.total,
-        items: req.body.items
-    }
-    WooCommerce.post("orders", newOrder)
-        .then((response) => {
-            res.status(200).json(response.data)
-        })
-        .catch((error) => {
-            res.status(404).json(error.response.data)
-        });
-}
-//Função lista encomendas por cliente
-const getOrders = (req, res) => {
-
-    WooCommerce.post("orders")
-        .then((response) => {
-            res.status(200).json(response.data)
-        })
-        .catch((error) => {
-            res.status(404).json(error.response.data)
-        });
+    })
+    console.log(newOrder)
+    order.find(function (err, result) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            newOrder.save(function (err, result) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                res.status(200).json("¨Pedido Enviado!")
+            })
+        }
+    })
 }
 
-//Função lista encomendas por cliente
-//customer_id nao funciona?
-const listOrderByClient = (req, res) => {
-
-    WooCommerce.post("orders/" + req.params.customer_id)
-        .then((response) => {
-            res.status(200).json(response.data)
-        })
-        .catch((error) => {
-            res.status(404).json(error.response.data)
-        });
+const orderByUser = (req, res) => {
+    order.find({
+        id_user: req.params.id
+    }, function (err, result) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).json(result)
+        }
+    })
 }
 
-exports.createOrder = createOrder;
-exports.getOrders  = getOrders;
-exports.listOrderByClient = listOrderByClient
+exports.addOrder = addOrder;
+exports.orderByUser = orderByUser

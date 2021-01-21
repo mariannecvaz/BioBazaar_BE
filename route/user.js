@@ -33,7 +33,14 @@ router.post('/auth/google',
 router.post('/login', [
     body('email').notEmpty().escape(),
     body('password').notEmpty().escape()], function(req, res){
-    controller.loginM(req, res)
+        const erros = validationResult(req);
+        if(erros.isEmpty()){
+            controller.loginM(req, res)
+        }
+        else{
+            res.status(404).json({errors: erros.array()})
+        }
+    
 })
 router.get('/user/:id',[param('id').notEmpty().escape()], function(req, res){
     const erros = validationResult(req);

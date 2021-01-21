@@ -20,6 +20,7 @@ app.use('/pontos', coinsRoute)
 app.use('/sacoCompras', shoppingBagRoute)
 app.use('/',categoryRoute)
 //Authorization - login
+
 const auth = function(req, res, next) {
     console.log(req.url)
     if(utilities.exceptions.indexOf(req.url) >= 0 || req.url.indexOf('login?code') != -1)  {

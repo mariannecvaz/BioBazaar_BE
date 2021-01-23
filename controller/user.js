@@ -20,6 +20,9 @@ const editUserM = (req, res) => {
       user.zipCode = req.body.zipCode
       user.country = req.body.country
       user.city = req.body.city
+      user.nif = req.body.nif
+      user.companyName = req.body.companyName
+      user.contact = req.body.contact
       user.save()
       res.status(200).send("Utilizador Editado!")
     }
@@ -34,7 +37,7 @@ const registerM = (req, res) => {
   bcrypt.genSalt(10, function (err, salt) {
 
     bcrypt.hash(req.body.password, salt, function (err, hash) {
-      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "" })
+      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "", nif: "", companyName: "", contact: ""})
 
       user.find({ email: req.body.email }, function (err, user) {
         if (err) {
@@ -94,6 +97,9 @@ const googleAuth = (req, res) => {
         zipCode: "",
         country: "",
         city: "",
+        nif: "",
+        companyName: "",
+        contact: ""
       });
 
       userToCreate.save(function (err, newUser) {

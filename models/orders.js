@@ -8,6 +8,8 @@ const orderSchema = new mongoose.Schema({
     contact: String,
     email: String,
     city: String,
+    nif:String,
+    companyName: String,
     products: Array,
     total: String,
 })

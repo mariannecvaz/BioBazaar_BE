@@ -9,6 +9,8 @@ const addOrder = (req, res) => {
         contact: req.body.contact,
         email: req.body.email,
         city: req.body.city,
+        nif: req.body.nif,
+        companyName: req.body.companyName,
         products: req.body.products,
         total: req.body.total,
     })

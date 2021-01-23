@@ -61,6 +61,9 @@ router.put('/user/:id', [
     body('zipcode').notEmpty().escape(),
     body('country').notEmpty().escape(),
     body('city').notEmpty().escape(),
+    body('nif').notEmpty().escape(),
+    body('companyName').notEmpty().escape(),
+    body('phone').notEmpty().escape()
 ], function(req, res){
     const erros = validationResult(req);
     if(erros.isEmpty()){

@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema({
     adress:String,
     zipCode:String,
     country:String,
-    city:String
+    city:String,
+    nif:String,
+    companyName: String
+
 })
 
 const user = mongoose.model('users', userSchema)

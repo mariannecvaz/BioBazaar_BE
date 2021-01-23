@@ -124,7 +124,7 @@ const loginM = (req, res) => {
       bcrypt.compare(req.body.password, user[0].password).then(function (result) {
         if (result) {
           utilities.generateToken({ user: req.body.email }, (token) => {
-            res.status(200).json({ token: token })
+            res.status(200).json({user:user[0]})
           })
         } else {
           res.status(401).send("Wrong Password")

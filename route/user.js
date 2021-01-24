@@ -56,7 +56,7 @@ router.put('/user/:id', [
     body('email').notEmpty().escape(),
     body('password').notEmpty().escape(),
     body('passwordNew').notEmpty().escape(),
-    body('username').notEmpty().escape(),
+    body('name').notEmpty().escape(),
     body('coins').notEmpty().escape(),
     body('adress').notEmpty().escape(),
     body('zipcode').notEmpty().escape(),

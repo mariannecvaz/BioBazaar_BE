@@ -16,7 +16,7 @@ const editUserM = (req, res) => {
       
         bcrypt.hash(req.body.passwordNew, salt, function (err, hash) {
           user.password = hash
-          user.username = req.body.username
+          user.name = req.body.name
           user.coins = req.body.coins
           user.adress = req.body.adress
           user.zipCode = req.body.zipCode

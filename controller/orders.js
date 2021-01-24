@@ -13,6 +13,7 @@ const addOrder = (req, res) => {
         companyName: req.body.companyName,
         products: req.body.products,
         total: req.body.total,
+        payment: req.body.payment
     })
     console.log(newOrder)
     order.find(function (err, result) {

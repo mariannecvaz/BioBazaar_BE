@@ -12,6 +12,7 @@ const orderSchema = new mongoose.Schema({
     companyName: String,
     products: Array,
     total: String,
+    payment:String
 })
 
 const order = mongoose.model('orders', orderSchema)

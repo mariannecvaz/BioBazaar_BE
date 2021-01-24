@@ -12,24 +12,26 @@ const editUserM = (req, res) => {
       res.status(400).send(err)
     }
     if (user) {
-      user.email = req.body.email
-      user.password = req.body.password
-      user.username = req.body.username
-      user.coins = req.body.coins
-      user.adress = req.body.adress
-      user.zipCode = req.body.zipCode
-      user.country = req.body.country
-      user.city = req.body.city
-      user.nif = req.body.nif
-      user.companyName = req.body.companyName
-      user.contact = req.body.contact
-      user.save()
-      res.status(200).send("Utilizador Editado!")
+      bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+          user.password = req.body.password
+          user.username = hash
+          user.coins = req.body.coins
+          user.adress = req.body.adress
+          user.zipCode = req.body.zipCode
+          user.country = req.body.country
+          user.city = req.body.city
+          user.nif = req.body.nif
+          user.companyName = req.body.companyName
+          user.contact = req.body.contact
+          user.save()
+          res.status(200).send("Utilizador Editado!")
+        })
+      })
+
     }
   })
-
 }
-
 /**MONGOOSE LOGIN E REGIST */
 
 const registerM = (req, res) => {
@@ -37,7 +39,7 @@ const registerM = (req, res) => {
   bcrypt.genSalt(10, function (err, salt) {
 
     bcrypt.hash(req.body.password, salt, function (err, hash) {
-      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "", nif: "", companyName: "", contact: ""})
+      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "", nif: "", companyName: "", contact: "" })
 
       user.find({ email: req.body.email }, function (err, user) {
         if (err) {
@@ -76,7 +78,7 @@ const googleAuth = (req, res) => {
         if (err) {
           res.status(400).send(err);
         }
-        if (! results) {
+        if (!results) {
           utilities.generateToken({
             email: userEmail,
             username: username,
@@ -130,7 +132,7 @@ const loginM = (req, res) => {
       bcrypt.compare(req.body.password, user[0].password).then(function (result) {
         if (result) {
           utilities.generateToken({ user: req.body.email }, (token) => {
-            res.status(200).json({user:user[0]})
+            res.status(200).json({ user: user[0] })
           })
         } else {
           res.status(401).send("Wrong Password")

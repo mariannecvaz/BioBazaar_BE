@@ -55,6 +55,7 @@ router.put('/user/:id', [
     param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
     body('email').notEmpty().escape(),
     body('password').notEmpty().escape(),
+    body('passwordNew').notEmpty().escape(),
     body('username').notEmpty().escape(),
     body('coins').notEmpty().escape(),
     body('adress').notEmpty().escape(),

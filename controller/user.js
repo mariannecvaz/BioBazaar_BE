@@ -7,15 +7,16 @@ const user = require('../models/users.js')
 // EDIT USER COM MONGOOSE
 const editUserM = (req, res) => {
 
-  user.findOne({ _id: req.params.id }, function (err, user) {
+  user.findOne({ email: req.params.id }, function (err, user) {
     if (err) {
       res.status(400).send(err)
     }
     if (user) {
       bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(req.body.password, salt, function (err, hash) {
-          user.password = req.body.password
-          user.username = hash
+      
+        bcrypt.hash(req.body.passwordNew, salt, function (err, hash) {
+          user.password = hash
+          user.username = req.body.username
           user.coins = req.body.coins
           user.adress = req.body.adress
           user.zipCode = req.body.zipCode

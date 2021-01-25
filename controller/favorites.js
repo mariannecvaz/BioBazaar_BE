@@ -4,33 +4,37 @@ const WooCommerce = require('../Database/dbconfig.js')
 
 //Função que adiciona um determinado produto aos favoritos
 const addFavorites = (req, res) => {
-    WooCommerce.get("products/" + req.params.id_product)
-        .then((response) => {
-            const newFavorite = new favorites({
+    products.find({
+        id_product: req.params.id_product
+    }, function (err, result) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            const newFav = new favorite({
                 id_user: req.params.id,
-                id_product: response.data.id,
-                name: response.data.name,
-                price: response.data.price,
-                image: response.data.images[0].src
+                id_product: req.params.id_product,
+                name: result[0].name,
+                price: result[0].price,
+                image: result[0].image
             })
-            favorites.find({ id_user: req.params.id, id_product: req.params.id_product }, function (err, result) {
+            favorites.find({
+                id_user: req.params.id,
+                id_product: req.params.id_product
+            }, function (err, result) {
                 if (err) {
                     res.status(400).send(err);
-                }
-                else {
-                    newFavorite.save(function (err, result) {
+                } else {
+                    newFav.save(function (err, result) {
                         if (err) {
                             res.status(400).send(err);
                         }
-                        res.status(200).json("Favorito Adicionado")
+                        res.status(200).json("Produto Adicionado")
                     })
                 }
             })
-        })
-        .catch((error) => {
 
-            res.status(404).json("error")
-        });
+        }
+    })
 }
 
 //Função que lista os produtos adicionados aos favoritos de um determinado utilizador
@@ -52,12 +56,13 @@ const getFavoritesByUser = (req, res) => {
 //Função que elimina um determinado produto dos favoritos
 const deleteFav = (req, res) => {
 
-    favorites.deleteOne({id_user: req.params.id, id_product: req.params.id_product}, function (err, favorites) {
+    favorites.deleteOne({id_user:req.params.id_user, id_product:req.params.id_product}, function (err, favorites) {
         if (err) {
             res.status(400).send(err)
         }
-        if(favorites){
+       else{
             res.status(200).send("Favorito Eliminado!")
+            console.log(favorites)
         }
     })
 

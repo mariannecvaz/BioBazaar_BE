@@ -28,9 +28,7 @@ router.get('/:id', [param('id').notEmpty().escape()], (req, res) => {
 });
 
 //Vai buscar a função aos controllers que elimina um determinado produto dos favoritos
-router.delete('/:id_user/:id_product', [
-    param('id_user').notEmpty().escape(),param('id_product').notEmpty().escape() //campos de preenchimento obrigatorio
-], function (req, res) {
+router.delete('/:id_user/:id_product', [param('id_user').notEmpty().escape(),param('id_product').notEmpty().escape()], function (req, res) {
     const error = validationResult(req);
     if (error.isEmpty()) {
         controller.deleteFav(req, res);

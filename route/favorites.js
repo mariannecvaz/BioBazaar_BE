@@ -18,7 +18,7 @@ router.post('/:id/:id_product', [
 });
 
 //Vai buscar a função aos controllers que lista todos os produtos adicionados aos favoritos de um determinado utilizador
-router.get('/:id', [param('id').notEmpty().isNumeric().escape()], (req, res) => {
+router.get('/:id', [param('id').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
         controller.getFavoritesByUser(req, res)

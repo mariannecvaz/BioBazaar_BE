@@ -10,15 +10,15 @@ const addFavorites = (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            const newFav = new favorite({
-                id_user: req.params.id,
+            const newFav = new favorites({
+                id_user: req.params.id_user,
                 id_product: req.params.id_product,
                 name: result[0].name,
                 price: result[0].price,
                 image: result[0].image
             })
             favorites.find({
-                id_user: req.params.id,
+                id_user: req.params.id_user,
                 id_product: req.params.id_product
             }, function (err, result) {
                 if (err) {
@@ -40,7 +40,7 @@ const addFavorites = (req, res) => {
 //Função que lista os produtos adicionados aos favoritos de um determinado utilizador
 const getFavoritesByUser = (req, res) => {
     favorites.find({
-        id_user:req.params.id
+        id_user:req.params.id_user
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);

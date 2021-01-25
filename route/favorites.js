@@ -5,10 +5,7 @@ const controller = require('../controller/favorites.js')
 
 
 //Vai buscar a função aos controllers para adicionar um determinado produto aos favoritos
-router.post('/:id/:id_product', [
-    param('id').notEmpty().isNumeric().escape(), 
-    param('id_product').notEmpty().isNumeric().escape()
-], (req, res) => {
+router.post('/:id_user/:id_product', [ param('id_user').notEmpty().escape(), param('id_product').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
         controller.addFavorites(req, res)
@@ -18,7 +15,7 @@ router.post('/:id/:id_product', [
 });
 
 //Vai buscar a função aos controllers que lista todos os produtos adicionados aos favoritos de um determinado utilizador
-router.get('/:id', [param('id').notEmpty().escape()], (req, res) => {
+router.get('/:id_user', [param('id_user').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
         controller.getFavoritesByUser(req, res)

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const favoriteSchema = new mongoose.Schema({
-    id_user: Number,
+    id_user: String,
     id_product: Number, 
     name:String,
     price:Number,

@@ -36,7 +36,7 @@ const addFavorites = (req, res) => {
 //Função que lista os produtos adicionados aos favoritos de um determinado utilizador
 const getFavoritesByUser = (req, res) => {
     favorites.find({
-        id_user:req.params.id
+        email:req.params.id
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);

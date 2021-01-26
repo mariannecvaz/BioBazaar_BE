@@ -27,8 +27,9 @@ const editUserM = (req, res) => {
           user.nif = req.body.nif
           user.companyName = req.body.companyName
           user.contact = req.body.contact
-          user.save()
-          res.status(200).send("Utilizador Editado!")
+          user.save() 
+          res.status(200).send(user)
+         
         })
       })
 

@@ -74,4 +74,16 @@ router.put('/user/:id', [
         res.status(404).json({errors: erros.array()})
     }
 })
+router.put('/pontos/:id', [
+    param('id').notEmpty().escape(),
+    body('coins').notEmpty().isNumeric().escape()
+], function(req, res){
+    const erros = validationResult(req);
+    if(erros.isEmpty()) {
+        controller.editCoins(req, res);
+    }
+    else{
+        res.status(404).json({errors: erros.array})
+    }
+})
 module.exports = router

@@ -1,4 +1,5 @@
 const favorites = require('../models/favorites.js');
+const products = require('../models/products.js')
 const WooCommerce = require('../Database/dbconfig.js')
 
 
@@ -41,14 +42,14 @@ const addFavorites = (req, res) => {
 //Função que lista os produtos adicionados aos favoritos de um determinado utilizador
 const getFavoritesByUser = (req, res) => {
     favorites.find({
-        id_user:req.params.id_user
+        id_user: req.params.id_user
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);
         }
-        else{
-           
-           res.status(200).json(result)
+        else {
+
+            res.status(200).json(result)
         }
 
     })
@@ -57,11 +58,11 @@ const getFavoritesByUser = (req, res) => {
 //Função que elimina um determinado produto dos favoritos
 const deleteFav = (req, res) => {
 
-    favorites.deleteOne({id_user:req.params.id_user, id_product:req.params.id_product}, function (err, favorites) {
+    favorites.deleteOne({ id_user: req.params.id_user, id_product: req.params.id_product }, function (err, favorites) {
         if (err) {
             res.status(400).send(err)
         }
-       else{
+        else {
             res.status(200).send("Favorito Eliminado!")
             console.log(favorites)
         }

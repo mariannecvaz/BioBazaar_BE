@@ -7,13 +7,15 @@ const user = require('../models/users.js')
 // EDIT USER COM MONGOOSE
 const editUserM = (req, res) => {
 
-  user.findOne({ email: req.params.id }, function (err, user) {
+  user.findOne({
+    email: req.params.id
+  }, function (err, user) {
     if (err) {
       res.status(400).send(err)
     }
     if (user) {
       bcrypt.genSalt(10, function (err, salt) {
-      
+
         bcrypt.hash(req.body.passwordNew, salt, function (err, hash) {
           user.password = hash
           user.name = req.body.name
@@ -40,9 +42,24 @@ const registerM = (req, res) => {
   bcrypt.genSalt(10, function (err, salt) {
 
     bcrypt.hash(req.body.password, salt, function (err, hash) {
-      const newUser = new user({ email: req.body.email, password: hash, username: req.body.username, name: req.body.name, coins: 0, adress: "", zipCode: "", country: "", city: "", nif: "", companyName: "", contact: "" })
+      const newUser = new user({
+        email: req.body.email,
+        password: hash,
+        username: req.body.username,
+        name: req.body.name,
+        coins: 0,
+        adress: "",
+        zipCode: "",
+        country: "",
+        city: "",
+        nif: "",
+        companyName: "",
+        contact: ""
+      })
 
-      user.find({ email: req.body.email }, function (err, user) {
+      user.find({
+        email: req.body.email
+      }, function (err, user) {
         if (err) {
           res.status(400).send(err)
         }
@@ -53,7 +70,9 @@ const registerM = (req, res) => {
             if (err) {
               res.status(400).send(err)
             } else {
-              res.status(200).json({ res: "User Registered!" })
+              res.status(200).json({
+                res: "User Registered!"
+              })
             }
           })
         }
@@ -125,15 +144,21 @@ const googleAuth = (req, res) => {
 }
 
 const loginM = (req, res) => {
-  user.find({ email: req.body.email }, function (err, user) {
+  user.find({
+    email: req.body.email
+  }, function (err, user) {
     if (err) {
       res.status(400).send(err)
     }
     if (user.length > 0) {
       bcrypt.compare(req.body.password, user[0].password).then(function (result) {
         if (result) {
-          utilities.generateToken({ user: req.body.email }, (token) => {
-            res.status(200).json({ user: user[0] })
+          utilities.generateToken({
+            user: req.body.email
+          }, (token) => {
+            res.status(200).json({
+              user: user[0]
+            })
           })
         } else {
           res.status(401).send("Wrong Password")
@@ -149,20 +174,36 @@ const loginM = (req, res) => {
 //GET USER COM MONGO
 const getUserByIdM = (req, res) => {
 
-  user.find(
-    { _id: req.params.id }, function (err, user) {
-      if (err) {
-        res.status(400).send(err)
-      } else {
-        res.status(200).json(user)
-      }
-    })
+  user.find({
+    _id: req.params.id
+  }, function (err, user) {
+    if (err) {
+      res.status(400).send(err)
+    } else {
+      res.status(200).json(user)
+    }
+  })
+}
+
+const editCoins = (req, res) => {
+
+  user.findOne({
+    email: req.params.id
+  }, function (err, user) {
+    if (err) {
+      res.status(400).send(err)
+    }
+    if (user) {
+      user.coins = req.body.coins
+      user.save()
+      res.status(200).send("Pontos Editados!")
+    }
+  })
+
 }
 
 
-
-
-
+exports.editCoins = editCoins;
 exports.getUserByIdM = getUserByIdM;
 exports.registerM = registerM;
 exports.loginM = loginM;

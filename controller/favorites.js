@@ -16,7 +16,7 @@ const addFavorites = (req, res) => {
                 id_product: req.params.id_product,
                 name: result[0].name,
                 price: result[0].price,
-                image: result[0].image
+                image: result[0].img
             })
             favorites.find({
                 id_user: req.params.id_user,

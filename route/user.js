@@ -54,7 +54,6 @@ router.get('/user/:id',[param('id').notEmpty().escape()], function(req, res){
 router.put('/user/:id', [
     param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
     body('email').notEmpty().escape(),
-    body('password').escape(),
     body('passwordNew').escape(),
     body('name').notEmpty().escape(),
     body('coins').escape(),

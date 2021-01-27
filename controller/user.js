@@ -56,7 +56,7 @@ const registerM = (req, res) => {
         city: "",
         nif: "",
         companyName: "",
-        contact: ""
+        phone: ""
       })
 
       user.find({

@@ -7,7 +7,6 @@ const controller = require('../controller/user.js')
 router.post('/register', [
     body('email').notEmpty().escape(),
     body('password').notEmpty().escape(),
-    body('username').notEmpty().escape(),
     body('name').notEmpty().escape(),
 ], function(req, res){
     const erros = validationResult(req);

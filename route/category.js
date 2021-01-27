@@ -3,6 +3,15 @@ const { validationResult , body, param} = require('express-validator')
 const router = express.Router()
 const controller = require('../controller/products.js')
 
+/**
+ * @route GET /categoria
+ * @group Categoria
+ * @returns {object} 200 - An array of all car info
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
+
 router.get('/categoria', (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {

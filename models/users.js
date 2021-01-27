@@ -1,3 +1,18 @@
+/**
+ * @typedef User
+ * @property {String} email.require
+ * @property {String} password.require
+ * @property {String} phone.require
+ * @property {String} name.require
+ * @property {Number} coins.require
+ * @property {String} adress.require
+ * @property {String} zipCode.require
+ * @property {String} country.require
+ * @property {String} city.require
+ * @property {String} nif.require
+ * @property {String} companyName.require
+ */
+
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({

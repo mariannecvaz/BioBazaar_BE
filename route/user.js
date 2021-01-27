@@ -66,6 +66,7 @@ router.put('/user/:id', [
 ], function(req, res){
     const erros = validationResult(req);
     if(erros.isEmpty()){
+        console.log(req.body);
         controller.editUserM(req, res);
     }
     else{

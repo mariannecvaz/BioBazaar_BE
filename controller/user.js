@@ -47,7 +47,6 @@ const registerM = (req, res) => {
       const newUser = new user({
         email: req.body.email,
         password: hash,
-        username: req.body.username,
         name: req.body.name,
         coins: 0,
         adress: "",
@@ -113,7 +112,7 @@ const googleAuth = (req, res) => {
       })
     } else if (user.length == 0) {
       const userToCreate = new user({
-        username: username,
+        name: username,
         password: "",
         email: userEmail,
         coins: 0,
@@ -123,7 +122,7 @@ const googleAuth = (req, res) => {
         city: "",
         nif: "",
         companyName: "",
-        contact: ""
+        phone: ""
       });
 
       userToCreate.save(function (err, newUser) {

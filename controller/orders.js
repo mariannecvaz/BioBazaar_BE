@@ -2,12 +2,11 @@ const order = require('../models/orders.js');
 
 const addOrder = (req, res) => {
     const newOrder = new order ({
-        id_user: req.params.id,
+        email: req.params.id,
         name: req.body.name,
         adress: req.body.adress,
         zipCode: req.body.zipCode,
         contact: req.body.contact,
-        email: req.body.email,
         city: req.body.city,
         nif: req.body.nif,
         companyName: req.body.companyName,
@@ -32,7 +31,7 @@ const addOrder = (req, res) => {
 
 const orderByUser = (req, res) => {
     order.find({
-        id_user: req.params.id
+        email: req.params.id
     }, function (err, result) {
         if (err) {
             res.status(400).send(err);

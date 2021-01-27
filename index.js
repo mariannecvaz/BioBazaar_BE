@@ -8,7 +8,7 @@ const productsRoute = require('./route/products')
 const usersRoute = require('./route/user')
 const ordersRoute = require('./route/orders')
 const favoritesRoute = require('./route/favorites')
-const coinsRoute = require('./route/coins')
+
 const shoppingBagRoute = require('./route/shoppingBag')
 const categoryRoute = require('./route/category')
 app.use(express.json());

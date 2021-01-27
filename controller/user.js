@@ -1,7 +1,6 @@
 const WooCommerce = require('../Database/dbconfig.js')
 const bcrypt = require('bcrypt')
 const utilities = require('../utilities/utilities.js')
-const coinsController = require('../controller/coins')
 const user = require('../models/users.js')
 
 // EDIT USER COM MONGOOSE
@@ -56,7 +55,7 @@ const registerM = (req, res) => {
         city: "",
         nif: "",
         companyName: "",
-        contact: ""
+        phone: ""
       })
 
       user.find({
@@ -123,7 +122,7 @@ const googleAuth = (req, res) => {
         city: "",
         nif: "",
         companyName: "",
-        contact: ""
+        phone: ""
       });
 
       userToCreate.save(function (err, newUser) {

@@ -19,6 +19,7 @@ const editUserM = (req, res) => {
         bcrypt.hash(req.body.passwordNew, salt, function (err, hash) {
           user.password = hash
           user.name = req.body.name
+          user.email = req.body.email
           user.coins = req.body.coins
           user.adress = req.body.adress
           user.zipCode = req.body.zipCode
@@ -26,7 +27,7 @@ const editUserM = (req, res) => {
           user.city = req.body.city
           user.nif = req.body.nif
           user.companyName = req.body.companyName
-          user.contact = req.body.contact
+          user.phone = req.body.phone
           user.save() 
           res.status(200).send(user)
          

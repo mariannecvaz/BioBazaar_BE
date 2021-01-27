@@ -54,17 +54,17 @@ router.get('/user/:id',[param('id').notEmpty().escape()], function(req, res){
 router.put('/user/:id', [
     param('id').notEmpty().escape(),  //campos de preenchimento obrigatorio
     body('email').notEmpty().escape(),
-    body('password').notEmpty().escape(),
-    body('passwordNew').notEmpty().escape(),
+    body('password').escape(),
+    body('passwordNew').escape(),
     body('name').notEmpty().escape(),
-    body('coins').notEmpty().escape(),
-    body('adress').notEmpty().escape(),
-    body('zipcode').notEmpty().escape(),
-    body('country').notEmpty().escape(),
-    body('city').notEmpty().escape(),
-    body('nif').notEmpty().escape(),
-    body('companyName').notEmpty().escape(),
-    body('phone').notEmpty().escape()
+    body('coins').escape(),
+    body('adress').escape(),
+    body('zipcode').escape(),
+    body('country').escape(),
+    body('city').escape(),
+    body('nif').escape(),
+    body('companyName').escape(),
+    body('phone').escape()
 ], function(req, res){
     const erros = validationResult(req);
     if(erros.isEmpty()){

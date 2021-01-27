@@ -1,3 +1,12 @@
+/**
+ * @typedef Favorites
+ * @property {String} id_user.require
+ * @property {Number} id_product.require
+ * @property {String} name.require
+ * @property {Number} price.require
+ * @property {String} image.require
+ */
+
 const mongoose = require('mongoose');
 
 const favoriteSchema = new mongoose.Schema({

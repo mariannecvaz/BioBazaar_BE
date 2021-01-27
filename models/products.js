@@ -1,3 +1,13 @@
+/**
+ * @typedef Products
+ * @property {String} name.require
+ * @property {String} img.require
+ * @property {String} price.require
+ * @property {String} id_product.require
+ * @property {String} category.require
+ * @property {String} subCategory.require
+ */
+
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({

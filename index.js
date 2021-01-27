@@ -16,7 +16,6 @@ app.use('/produtos', productsRoute)
 app.use('/', usersRoute)
 app.use('/encomendas', ordersRoute)
 app.use('/favoritos', favoritesRoute)
-app.use('/pontos', coinsRoute)
 app.use('/sacoCompras', shoppingBagRoute)
 app.use('/',categoryRoute)
 //Authorization - login

@@ -4,9 +4,10 @@ const router = express.Router()
 const controller = require('../controller/shoppingBag.js')
 
 /**
- * @route POST /shoppingBag
+ * @route POST /sacoCompras/{id}/{id_product}
  * @group SacoCompras
- * @param {object} object.body info para adicionar um produto ao carrinho de compras
+ * @param {String} id.path - id do utilizador
+ * @param {String} id_product.path - id do produto
  * @returns {object} 200 - An array of all car info
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token
@@ -25,8 +26,9 @@ router.post('/:id/:id_product', [
 })
 
 /**
- * @route GET /shoppingBag
+ * @route GET /sacoCompras/{id}
  * @group SacoCompras
+ * @param {String} id.path - id do utilizador
  * @returns {object} 200 - Array de todos os produtos adicionados no carrinho
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token
@@ -42,10 +44,10 @@ router.get('/:id', [param('id').notEmpty().escape()], (req, res) => {
 });
 
 /**
- * @route DELETE /shoppingBag/{id}/{id_product}
+ * @route DELETE /sacoCompras/{id}/{id_product}
  * @group SacoCompras
  * @param {String} id.path - id do utilizador
- * @param {String} id_product - id do produto
+ * @param {String} id_product.path - id do produto
  * @returns {object} 200 - Eliminou o produto do carrinho
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token

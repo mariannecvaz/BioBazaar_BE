@@ -4,7 +4,7 @@ const router = express.Router()
 const controller = require('../controller/products.js')
 
 /**
- * @route GET /products
+ * @route GET /produtos
  * @group Produtos
  * @returns {object} 200 - Array de todos os produtos
  * @returns {Error} 400 - Unexpected error
@@ -22,8 +22,9 @@ router.get( '/', ( req, res ) => {
 } );
 
 /**
- * @route GET /products/{id}
+ * @route GET /produtos/{id}
  * @group Produtos
+ * @param {String} id.path - id do produto
  * @returns {object} 200 - Array de todos os produtos pelo ID
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token
@@ -40,8 +41,9 @@ router.get( '/:id',[param('id').notEmpty().isNumeric().escape()], ( req, res ) =
 } );
 
 /**
- * @route GET /subcategoria/{:subcategory}
+ * @route GET /produtos/subcategoria/{subCategory}
  * @group Produtos
+ * @param {String} subCategory.path - subcategoria
  * @returns {object} 200 - Array de todos os produtos de uma subcategoria
  * @returns {Error} 400 - Unexpected error
  * @returns {Error} 401 - Invalid Token

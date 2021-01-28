@@ -22,7 +22,7 @@ const options = {
 
     },
     basedir: __dirname,
-    files: ['./routes//*.js', './models//*.js']
+    files: ['./route//*.js', './models//*.js']
 };
 
 module.exports = options;

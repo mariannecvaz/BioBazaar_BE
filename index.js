@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = process.env.PORT 
+const port = process.env.PORT || 3000 
 const utilities = require('./utilities/utilities.js')
 const mongoose = require('./Database/mongoconfig')
 const productsRoute = require('./route/products')
@@ -34,6 +34,11 @@ const auth = function(req, res, next) {
         })
     }
 }
+
+// Swagger
+const expressSwagger = require('express-swagger-generator')(app); 
+const options = require('./swagger_conf'); 
+expressSwagger(options);
 
 app.use(auth)
 app.listen(port, err => {

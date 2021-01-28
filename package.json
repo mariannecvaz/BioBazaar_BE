@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mariannecvaz/BioBazaar_Backend.git"
+    "url": "git+https://github.com/ritacardoso17/BioBazaarBE.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mariannecvaz/BioBazaar_Backend/issues"
+    "url": "https://github.com/ritacardoso17/BioBazaarBE/issues"
   },
-  "homepage": "https://github.com/mariannecvaz/BioBazaar_Backend#readme",
+  "homepage": "https://github.com/ritacardoso17/BioBazaarBE#readme",
   "dependencies": {
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "bcrypt": "^5.0.0",

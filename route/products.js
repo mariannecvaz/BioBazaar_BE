@@ -3,7 +3,14 @@ const { validationResult , body, param} = require('express-validator')
 const router = express.Router()
 const controller = require('../controller/products.js')
 
-//Vai buscar a função aos controllers para mostrar todos os produtos
+/**
+ * @route GET /products
+ * @group Produtos
+ * @returns {object} 200 - Array de todos os produtos
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get( '/', ( req, res ) => {
     const error = validationResult(req)
     if(error.isEmpty()){
@@ -14,7 +21,14 @@ router.get( '/', ( req, res ) => {
    }
 } );
 
-//Vai buscar a função aos controllers para mostrar todos os produtos pelo respetivo ID
+/**
+ * @route GET /products/{id}
+ * @group Produtos
+ * @returns {object} 200 - Array de todos os produtos pelo ID
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get( '/:id',[param('id').notEmpty().isNumeric().escape()], ( req, res ) => {
     const error = validationResult(req)
     if(error.isEmpty()){
@@ -25,6 +39,14 @@ router.get( '/:id',[param('id').notEmpty().isNumeric().escape()], ( req, res ) =
    }
 } );
 
+/**
+ * @route GET /subcategoria/{:subcategory}
+ * @group Produtos
+ * @returns {object} 200 - Array de todos os produtos de uma subcategoria
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/subcategoria/:subCategory',[param('subCategory').notEmpty().escape()], ( req, res ) => {
     const error = validationResult(req)
     if(error.isEmpty()){

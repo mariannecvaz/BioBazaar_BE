@@ -3,8 +3,16 @@ const {validationResult, body, param} = require('express-validator')
 const router = express.Router()
 const controller = require('../controller/favorites.js')
 
-
-//Vai buscar a função aos controllers para adicionar um determinado produto aos favoritos
+/**
+ * @route POST /favoritos/{id_user}/{id_product}
+ * @group Favoritos
+ * @param {String} id_user.path - id do utilizador
+ * @param {String} id_product.path - id do produto
+ * @returns {object} 200 - Array de todos os produtos nos favoritos
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.post('/:id_user/:id_product', [ param('id_user').notEmpty().escape(), param('id_product').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
@@ -14,7 +22,15 @@ router.post('/:id_user/:id_product', [ param('id_user').notEmpty().escape(), par
     }
 });
 
-//Vai buscar a função aos controllers que lista todos os produtos adicionados aos favoritos de um determinado utilizador
+/**
+ * @route GET /favoritos/{id_user}
+ * @group Favoritos
+ * @param {String} id_user.path - id do utilizador
+ * @returns {object} 200 - Array de todos os produtos adicionados nos favoritos de um utilizador
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.get('/:id_user', [param('id_user').notEmpty().escape()], (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
@@ -24,7 +40,16 @@ router.get('/:id_user', [param('id_user').notEmpty().escape()], (req, res) => {
     }
 });
 
-//Vai buscar a função aos controllers que elimina um determinado produto dos favoritos
+/**
+ * @route DELETE /favoritos/{id_user}/{id_product}
+ * @group Favoritos
+ * @param {String} id_user.path - id do utilizador
+ * @param {String} id_product.path - id do produto
+ * @returns {object} 200 - Eliminou o produto dos favoritos
+ * @returns {Error} 400 - Unexpected error
+ * @returns {Error} 401 - Invalid Token
+ * @security Bearer
+ */
 router.delete('/:id_user/:id_product', [param('id_user').notEmpty().escape(),param('id_product').notEmpty().escape()], function (req, res) {
     const error = validationResult(req);
     if (error.isEmpty()) {

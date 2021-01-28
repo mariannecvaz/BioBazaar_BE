@@ -6,6 +6,7 @@
  * @property {String} id_product.require
  * @property {String} category.require
  * @property {String} subCategory.require
+ * @property {String} description.require
  */
 
 const mongoose = require('mongoose');
@@ -16,7 +17,8 @@ const productSchema = new mongoose.Schema({
    price:String,
    id_product: String,
    category: String,
-   subCategory: String
+   subCategory: String,
+   description:String
 })
 
 const products = mongoose.model('products', productSchema)
